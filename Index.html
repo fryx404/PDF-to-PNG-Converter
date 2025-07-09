@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to PNG 変換ツール</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- pdf.js and jszip libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto px-4 py-8 md:py-12">
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">PDF to PNG 変換ツール</h1>
+            <p class="mt-2 text-md md:text-lg text-gray-600">PDFファイルをページごとにPNG画像へ変換し、一括ダウンロードも可能です。</p>
+        </header>
+
+        <main>
+            <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-6 md:p-8">
+                <!-- File Input Section -->
+                <div class="text-center">
+                    <input type="file" id="pdf-file" class="hidden" accept="application/pdf">
+                    <label for="pdf-file" class="file-input-button inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-sm hover:bg-indigo-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                        PDFファイルを選択
+                    </label>
+                    <p id="file-name" class="mt-4 text-sm text-gray-500">まだファイルが選択されていません。</p>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div id="loader" class="hidden text-center my-8">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                    <p class="mt-4 text-gray-600 font-semibold">変換処理中... PDFのページ数によって時間がかかる場合があります。</p>
+                </div>
+
+                <!-- ZIP Download Button -->
+                <div id="zip-download-container" class="text-center mt-8 hidden">
+                    <button id="download-zip-btn" class="zip-button w-full md:w-auto bg-green-600 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                        すべてをZIPでダウンロード
+                    </button>
+                </div>
+
+                <!-- Error Message Box -->
+                <div id="error-box" class="hidden mt-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+                    <strong class="font-bold">エラー:</strong>
+                    <span id="error-message" class="block sm:inline"></span>
+                </div>
+            </div>
+
+            <!-- Output Section -->
+            <div id="image-container" class="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Generated images will be appended here -->
+            </div>
+        </main>
+
+        <footer class="text-center mt-12 text-sm text-gray-500">
+            <p>&copy; 2024 PDF to PNG Converter. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
